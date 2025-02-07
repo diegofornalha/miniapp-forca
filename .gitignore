@@ -40,6 +40,6 @@ Thumbs.db
 /dist/prebundle/
 .taro-meta/
 
-# Lock files (opcional, descomente se quiser ignorar)
+# Lock files
 # package-lock.json
-# yarn.lock
+yarn.lock

@@ -1,154 +1,114 @@
-Template React Native para Taro
-====
+# Jogo da Forca - Mini Programa e H5
 
 ## Requisitos
 
-0. taro: `@tarojs/cli@^3.5.0`
-1. framework: 'react'
+- Node.js: `>=16.20.0` (recomendado: v18.19.1)
+- Taro: `v4.0.9`
+- Framework: React
 
-## Início Rápido
+## Primeira Execução
 
-### Instalar Biblioteca React Native
-> Instale as dependências peer de `@tarojs/taro-rn`, `@tarojs/components-rn` e `@tarojs/router-rn`; essa ação também executará o `post-install`. Por favor, modifique e execute o script `upgradePeerdeps` ao alterar a versão do Taro.
-> 
-> **Execute este script após a inicialização do projeto.**
+Para garantir uma instalação limpa e funcional, siga estes passos na ordem:
 
-`yarn upgradePeerdeps`
-
-### Instalação de Pods
-> Execute este script quando adicionar uma nova biblioteca React Native ou atualizar a versão de uma existente.
-> 
-> Consulte [pod-install](https://www.npmjs.com/package/pod-install) para mais informações.
-
-`yarn podInstall`
-
-### Iniciar Aplicativo iOS
-
-`yarn ios`
-
-### Iniciar Aplicativo Android
-
-`yarn android`
-
-### Iniciar Bundler
-
-`yarn start`
-
-### Mais Informações
-
-0. [Processo de Desenvolvimento do Taro React Native](https://taro-docs.jd.com/taro/docs/react-native)
-1. [GitHub](https://github.com/NervJS/taro)
-
-## Publicação
-
-### Construir Bundle para iOS
-
-`yarn build:rn --platform ios`
-
-### Construir Bundle para Android
-
-`yarn build:rn --platform android`
-
-### Publicar Aplicativo iOS
-
-Consulte [publishing-to-app-store](https://reactnative.cn/docs/publishing-to-app-store) para mais detalhes.
-
-### Publicar APK Android
-
-Consulte [signed-apk-android](https://reactnative.cn/docs/signed-apk-android) para mais detalhes.
-
-## Workflows do GitHub
-> Utilize o GitHub Actions para construir seus aplicativos. Este template inclui uma configuração básica do GitHub Actions.
-
-Consulte [.github/workflows](.github/workflows) para mais detalhes.
-
-### Eventos
-
-Por padrão, são gerados produtos de debug e release para Android e iOS quando você realiza push ou pull request na branch master. Personalize seus fluxos de trabalho modificando os arquivos em [.github/workflows](.github/workflows).
-
-Consulte [events-that-trigger-workflows](https://docs.github.com/en/actions/reference/events-that-trigger-workflows).
-
-### iOS
-
-#### Configuração
-
-Modifique os seguintes itens de configuração para empacotar e publicar seu aplicativo.
-
-> [.github/workflows/assemble_ios_debug.yml](.github/workflows/assemble_ios_debug.yml)
-> [.github/workflows/assemble_ios_release.yml](.github/workflows/assemble_ios_release.yml)
-
-```yml
-env:
-  APP_ID: com.taro.demo         # Identificador do Pacote do Aplicativo
-  APP_NAME: Taro Demo            # Nome de Exibição do Aplicativo
-  VERSION_NUMBER: 1.0.0          # Número da Versão do Aplicativo
-  BUILD_NUMBER: 1.0.0.0          # Número da Build do Aplicativo (usado apenas na publicação)
-  TEAM_ID: XXXXXXXXXX            # ID da Equipe (usado na atualização do projeto)
-  PROVISIONING_PROFILE_SPECIFIER: Product_profile  # Nome do Perfil de Provisionamento para a Assinatura de Código
-  CODE_SIGN_IDENTITY: iPhone Distribution           # Tipo de Identidade para Assinatura (iPhone Developer, iPhone Distribution)
-  SIGNING_CERTIFICATE_P12_DATA: ${{secrets.RELEASE_SIGNING_CERTIFICATE_P12_DATA}}
-  SIGNING_CERTIFICATE_PASSWORD: ${{secrets.RELEASE_SIGNING_CERTIFICATE_PASSWORD}}
-  PROVISIONING_PROFILE_DATA: ${{secrets.RELEASE_PROVISIONING_PROFILE_DATA}}
-  APP_STORE_CONNECT_USERNAME: ${{secrets.APP_STORE_CONNECT_USERNAME}}  # Defina este segredo com o Apple ID da sua conta de desenvolvedor (usado apenas na publicação)
-  APP_STORE_CONNECT_PASSWORD: ${{secrets.APP_STORE_CONNECT_PASSWORD}}  # Utilizado apenas na publicação
+1. Certifique-se de estar usando Node.js v18.19.1:
+```bash
+nvm install 18.19.1
+nvm use 18.19.1
 ```
 
-Valores como ${{secrets.xxxxx}} são gerados manualmente e armazenados nos segredos criptografados do GitHub.
-
-##### SIGNING_CERTIFICATE_P12_DATA
-
-`cat Certificates.p12 | base64 | pbcopy`
-
-##### SIGNING_CERTIFICATE_PASSWORD
-
-Senha de criptografia do seu arquivo de certificado (.p12)
-
-##### PROVISIONING_PROFILE_DATA
-
-`cat profile.mobileprovision | base64 | pbcopy`
-
-##### APP_STORE_CONNECT_PASSWORD
-
-Este segredo deve ser definido como uma senha específica para o seu aplicativo na conta Apple ID. Siga [estas instruções](https://support.apple.com/en-us/HT204397) para criá-la.
-
-#### Leia Mais
-
-1. [Implantar um Aplicativo iOS no TestFlight ou na App Store usando GitHub Actions](https://betterprogramming.pub/deploy-an-ios-app-to-testflight-or-the-app-store-using-github-actions-c4d7082b1430)
-2. [Segredos Criptografados](https://docs.github.com/en/actions/reference/encrypted-secrets)
-3. [Fastlane](https://docs.fastlane.tools/)
-
-### Android
-
-#### Configuração
-
-Modifique os seguintes itens de configuração para empacotar e publicar seu aplicativo.
-
-> [.github/workflows/assemble_android_debug.yml](.github/workflows/assemble_android_debug.yml)
-> [.github/workflows/assemble_android_release.yml](.github/workflows/assemble_android_release.yml)
-
-```yml
-env:
-  APP_ID: com.taro.demo              # Identificador do Pacote do Aplicativo
-  APP_NAME: Taro Demo                # Nome de Exibição do Aplicativo
-  APP_ICON: ic_launcher              # Ícone do Aplicativo
-  APP_ROUND_ICON: ic_launcher_round  # Ícone Arredondado do Aplicativo
-  APP_ABI_FILTERS: armeabi-v7a, arm64-v8a  # Filtros de ABI do Aplicativo
-  VERSION_NAME: 1.0.0                # Nome da Versão
-  VERSION_CODE: 10                   # Código da Versão
-  KEYSTORE_FILE: debug.keystore      # Arquivo de Keystore
-  KEYSTORE_PASSWORD: android         # Senha do Keystore
-  KEYSTORE_KEY_ALIAS: androiddebugkey  # Alias da Chave do Keystore
-  KEYSTORE_KEY_PASSWORD: android       # Senha da Chave do Keystore
+2. Limpe qualquer instalação anterior:
+```bash
+rm -rf node_modules package-lock.json
+sudo chown -R $(whoami) .
 ```
 
-Para a segurança do seu aplicativo, regenere o arquivo .keystore e armazene a senha nos segredos criptografados do GitHub.
+3. Instale as dependências com configurações específicas:
+```bash
+npm install --legacy-peer-deps
+npm install core-js-pure@3.36.0 --save-dev --legacy-peer-deps
+npm install @pmmmwh/react-refresh-webpack-plugin@0.5.10 --save-dev --legacy-peer-deps
+```
 
-#### Leia Mais
+4. Inicie o projeto em modo de produção (recomendado para primeira execução):
+```bash
+NODE_ENV=production npm run dev:weapp
+```
 
-1. [Assinatura de Aplicativos](https://developer.android.com/studio/publish/app-signing)
-2. [Segredos Criptografados](https://docs.github.com/en/actions/reference/encrypted-secrets)
+## Desenvolvimento
 
-## Links
+### Mini Programa WeChat
 
-0. [Código Fonte do Template](https://github.com/NervJS/taro-project-templates/tree/v3.1/react-native)
-1. [Projeto de Exemplo](https://github.com/wuba/taro-react-native/tree/playground)
+Para desenvolvimento com hot-reload:
+```bash
+npm run dev:weapp
+```
+
+Para build de produção com compressão:
+```bash
+NODE_ENV=production npm run dev:weapp
+```
+
+### Web H5
+
+Para desenvolvimento com hot-reload:
+```bash
+npm run dev:h5
+```
+
+Para build de produção:
+```bash
+npm run build:h5
+```
+
+## Notas de Desenvolvimento
+
+### Melhorando Performance
+
+1. Habilite o cache no `config/index.ts`:
+```typescript
+cache: {
+  enable: true
+}
+```
+
+2. Use o modo de produção para melhor performance:
+```bash
+NODE_ENV=production npm run dev:weapp
+```
+
+### Depuração
+
+- **WeApp**: Abra o WeChat DevTools e carregue o projeto da pasta `dist`
+- **H5**: Acesse `http://localhost:10086` no seu navegador
+
+## Resolução de Problemas Comuns
+
+### Erro de Permissão
+Se encontrar erros de permissão (EACCES), execute:
+```bash
+sudo chown -R $(whoami) .
+```
+
+### Erro de Dependências
+Se encontrar erros relacionados ao `core-js-pure` ou `react-refresh`, execute:
+```bash
+npm install core-js-pure@3.36.0 --save-dev --legacy-peer-deps
+npm install @pmmmwh/react-refresh-webpack-plugin@0.5.10 --save-dev --legacy-peer-deps
+```
+
+### Erro de Compilação
+Se o webpack apresentar erros de compilação, tente:
+1. Limpar o cache:
+```bash
+rm -rf node_modules/.cache
+```
+2. Reinstalar as dependências:
+```bash
+rm -rf node_modules package-lock.json
+npm install --legacy-peer-deps
+```
+
+## Links Úteis
+
+- [Documentação do Taro](https://taro-docs.jd.com/)
+- [GitHub do Taro](https://github.com/NervJS/taro)
